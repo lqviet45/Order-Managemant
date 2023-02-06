@@ -33,7 +33,7 @@ public class OrderManagement {
             return;
         }
         for (Order o : orders) {
-            if (o.getStatus().equalsIgnoreCase("true")) {
+            if (o.getStatus().equalsIgnoreCase("false")) {
                 System.out.println(o);
             }
         }
