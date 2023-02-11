@@ -3,6 +3,7 @@ package gui;
 import java.util.ArrayList;
 import java.util.List;
 import manage.*;
+import datamodel.*;
 import model.*;
 import validation.Validation;
 
@@ -12,10 +13,10 @@ public class Menu {
     private static final List<Customer> cList = new ArrayList<>();
     private static final List<Order> oList = new ArrayList<>();
 
-    private static final ProductManagement pm = new ProductManagement(pList);
-    private static final CustomerManagement cm = new CustomerManagement(cList);
-    private static final OrderManagement om = new OrderManagement(oList);
-
+    private static final ProductM pm = new ProductManagement(pList);
+    private static final CustomerM cm = new CustomerManagement(cList);
+    private static final OrderM om = new OrderManagement(oList);
+    
     private static final String[] program = {
         "List all products.",
         "List all cuctommers.",

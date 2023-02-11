@@ -1,5 +1,6 @@
 package manage;
 
+import datamodel.CustomerM;
 import model.Customer;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,7 +14,7 @@ import validation.Validation;
  *
  * @author DELL
  */
-public class CustomerManagement {
+public class CustomerManagement implements CustomerM{
     private String ID, name, address, phone;
 
     public CustomerManagement(List<Customer> customers) {

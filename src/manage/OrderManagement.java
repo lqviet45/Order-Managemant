@@ -1,5 +1,6 @@
 package manage;
 
+import datamodel.OrderM;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -16,7 +17,7 @@ import model.*;
  *
  * @author DELL
  */
-public class OrderManagement {
+public class OrderManagement implements OrderM{
 
     private String orderID, customerID, productID;
     private int quantity;
@@ -143,7 +144,7 @@ public class OrderManagement {
         }
     }
 
-    public void saveToFile(List<Order> orders) {
+    private static void saveToFile(List<Order> orders) {
         try {
             File f = new File("orders.txt");
             FileWriter fw = new FileWriter(f);

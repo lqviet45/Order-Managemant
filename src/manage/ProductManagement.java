@@ -1,5 +1,6 @@
 package manage;
 
+import datamodel.ProductM;
 import model.Product;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,7 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-public class ProductManagement {
+public class ProductManagement implements ProductM{
 
     public ProductManagement(List<Product> products) {
         loadData(products);
@@ -22,7 +23,7 @@ public class ProductManagement {
     }
     
     
-    public void saveToFile(List<Product> products){
+    private void saveToFile(List<Product> products){
         try {
             File f = new File("products.txt");
             FileWriter fw = new FileWriter(f);
