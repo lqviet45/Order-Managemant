@@ -2,6 +2,11 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/E:/FPTU/SPRING2023/LAB211/BaiLam/Order%20Management/src/manage/OrderManagement.java</file>
+            <file>file:/E:/FPTU/SPRING2023/LAB211/BaiLam/Order%20Management/src/manage/ProductManagement.java</file>
+            <file>file:/E:/FPTU/SPRING2023/LAB211/BaiLam/Order%20Management/src/gui/Main.java</file>
+            <file>file:/E:/FPTU/SPRING2023/LAB211/BaiLam/Order%20Management/src/manage/CustomerManagement.java</file>
+        </group>
     </open-files>
 </project-private>

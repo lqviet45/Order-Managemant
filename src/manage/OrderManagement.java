@@ -17,7 +17,7 @@ import model.*;
  *
  * @author DELL
  */
-public class OrderManagement implements OrderM{
+public class OrderManagement implements OrderM {
 
     private String orderID, customerID, productID;
     private int quantity;
@@ -56,7 +56,11 @@ public class OrderManagement implements OrderM{
         orderDate = Validation.inputDate(1);
         status = Validation.inputStatus(1);
         orders.add(new Order(orderID, customerID, productID, quantity, orderDate, status));
-        saveToFile(orders);
+        if (saveToFile(orders)) {
+            System.out.println("SUCCESS");
+        } else {
+            orders.remove(this);
+        }
     }
 
     public void updateOrder(List<Order> orders, List<Product> products, List<Customer> customers) {
@@ -98,10 +102,15 @@ public class OrderManagement implements OrderM{
                 if (status.trim().isEmpty()) {
                     status = orders.get(i).getStatus();
                 }
+                Order temp = orders.get(i);
                 Order o = new Order(orderID, customerID, productID, quantity, orderDate, status);
                 if (!orders.get(i).equals(o)) {
                     orders.set(i, new Order(orderID, customerID, productID, quantity, orderDate, status));
-                    saveToFile(orders);
+                    if(saveToFile(orders)) {
+                        System.out.println("SUCCESS");
+                    } else {
+                        orders.set(i, temp);
+                    }
                     return;
                 } else {
                     System.out.println("UPDATE FAIL because there are not thing be updated!!");
@@ -125,9 +134,14 @@ public class OrderManagement implements OrderM{
                     System.out.println("Stop Delete");
                     return;
                 }
+                Order temp = orders.get(i);
                 orders.remove(i);
-                saveToFile(orders);
-                return;
+                if(saveToFile(orders)) {
+                    System.out.println("SUCCESS");
+                    return;
+                } else {
+                    orders.add(temp);
+                }
             }
         }
         System.out.println("DELETE FAIL");
@@ -144,7 +158,7 @@ public class OrderManagement implements OrderM{
         }
     }
 
-    private static void saveToFile(List<Order> orders) {
+    private static boolean saveToFile(List<Order> orders) {
         try {
             File f = new File("orders.txt");
             FileWriter fw = new FileWriter(f);
@@ -157,10 +171,10 @@ public class OrderManagement implements OrderM{
 
             bw.close();
             fw.close();
-            System.out.println("SUCCESS");
+            return true;
         } catch (IOException e) {
             System.err.println(e);
-            System.gc();
+            return false;
         }
     }
 

@@ -27,7 +27,11 @@ public class CustomerManagement implements CustomerM{
         address = Validation.getString("Enter customer's address: ", "Address must not null!!!", "[a-z A-Z]{2,30}", 1);
         phone = Validation.getString("Enter customer's phone number: ", "Phone number must have 10 -> 12 digits", "[0-9]{10,12}", 1);
         customers.add(new Customer(ID, name, address, phone));
-        saveToFile(customers);
+        if(saveToFile(customers)) {
+            System.out.println("SUCCESS");
+        } else {
+            customers.remove(this);
+        }
     }
     
     public void printCustomersList(List<Customer> customers) {
@@ -70,10 +74,15 @@ public class CustomerManagement implements CustomerM{
                 phone = Validation.getString("Enter customer's phone number: ", "Phone number must have 10 -> 12 digits", "[0-9]{10,12}", 2);
                 if(phone.isEmpty()) phone = customers.get(i).getPhone();
                 Customer c = new Customer(ID, name, address, phone);
-                
+                Customer temp = customers.get(i);
                 if(!customers.get(i).equals(c)) {
                     customers.set(i, c);
                     saveToFile(customers);
+                    if(saveToFile(customers)) {
+                        System.out.println("SUCCESS");
+                    } else {
+                        customers.set(i, temp);
+                    }
                     return;    
                 } else {
                     System.out.println("UPDATE FAIL because there are not thing be updated!!");
@@ -88,7 +97,7 @@ public class CustomerManagement implements CustomerM{
     
     
     //private method
-    private void saveToFile(List<Customer> customers) {
+    private boolean saveToFile(List<Customer> customers) {
         try {
             File f = new File("customers.txt");
             FileWriter fw = new FileWriter(f);
@@ -101,9 +110,10 @@ public class CustomerManagement implements CustomerM{
 
             bw.close();
             fw.close();
-            System.out.println("SUCCESS");
+            return true;
         } catch (IOException e) {
             System.err.println(e);
+            return false;
         }
     }
     
