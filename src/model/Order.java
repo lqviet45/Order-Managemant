@@ -9,7 +9,7 @@ import java.util.Objects;
  * @author DELL
  */
 public class Order {
-    private String orderID, customerID, productID;
+    private String orderID, customerID, productID, CustomerName;
     private int quantity;
     private String orderDate;
     private String status;
@@ -17,15 +17,24 @@ public class Order {
     public Order() {
     }
 
-    public Order(String orderID, String customerID, String productID, int quantity, String orderDate, String status) {
+    public Order(String orderID, String customerID, String productID, int quantity, String orderDate, String status, List<Customer> customers) {
         this.orderID = orderID;
         this.customerID = customerID;
         this.productID = productID;
         this.quantity = quantity;
         this.orderDate = orderDate;
         this.status = status;
+        for (Customer o : customers) {
+            if(o.getID().equalsIgnoreCase(customerID)) {
+                this.CustomerName = o.getName();
+            }
+        }
     }
 
+    public String getCustomerName() {
+        return CustomerName;
+    }
+    
     public String getOrderID() {
         return orderID;
     }
@@ -73,15 +82,7 @@ public class Order {
     public void setStatus(String status) {
         this.status = status;
     }
-    
-    public String getCustomerName(List<Customer> customers) {
-        for (Customer c : customers) {
-            if(c.getID().equalsIgnoreCase(customerID)) {
-                return c.getName();
-            }
-        }
-        return null;
-    }
+   
 
     @Override
     public String toString() {

@@ -24,8 +24,8 @@ public class OrderManagement implements OrderM {
     private String orderDate;
     private String status;
 
-    public OrderManagement(List<Order> orders) {
-        loadData(orders);
+    public OrderManagement(List<Order> orders, List<Customer> customers) {
+        loadData(orders, customers);
     }
 
     public void printAllPendingOrder(List<Order> orders) {
@@ -47,7 +47,6 @@ public class OrderManagement implements OrderM {
         showCustomers(customers);
         choice = Validation.getInt("Enter the index of customer: ", 1, customers.size(), 1);
         customerID = customers.get(choice - 1).getID();
-
         showProducts(products);
         choice = Validation.getInt("Enter the index of product: ", 1, products.size(), 1);
         productID = products.get(choice - 1).getID();
@@ -55,7 +54,7 @@ public class OrderManagement implements OrderM {
         quantity = Validation.getInt("Enter order quantity: ", 0, Integer.MAX_VALUE, 1);
         orderDate = Validation.inputDate(1);
         status = Validation.inputStatus(1);
-        orders.add(new Order(orderID, customerID, productID, quantity, orderDate, status));
+        orders.add(new Order(orderID, customerID, productID, quantity, orderDate, status, customers));
         if (saveToFile(orders)) {
             System.out.println("SUCCESS");
         } else {
@@ -103,9 +102,9 @@ public class OrderManagement implements OrderM {
                     status = orders.get(i).getStatus();
                 }
                 Order temp = orders.get(i);
-                Order o = new Order(orderID, customerID, productID, quantity, orderDate, status);
+                Order o = new Order(orderID, customerID, productID, quantity, orderDate, status, customers);
                 if (!orders.get(i).equals(o)) {
-                    orders.set(i, new Order(orderID, customerID, productID, quantity, orderDate, status));
+                    orders.set(i, new Order(orderID, customerID, productID, quantity, orderDate, status, customers));
                     if(saveToFile(orders)) {
                         System.out.println("SUCCESS");
                     } else {
@@ -152,7 +151,7 @@ public class OrderManagement implements OrderM {
             System.out.println("List order is empty!!");
             return;
         }
-        sortByCustomerName(orders, customers);
+        sortByCustomerName(orders);
         for (Order o : orders) {
             System.out.println(o);
         }
@@ -178,7 +177,7 @@ public class OrderManagement implements OrderM {
         }
     }
 
-    private static void loadData(List<Order> orders) {
+    private static void loadData(List<Order> orders, List<Customer> customers) {
         try {
             FileReader fr = new FileReader("orders.txt");
             BufferedReader br = new BufferedReader(fr);
@@ -195,7 +194,7 @@ public class OrderManagement implements OrderM {
                 int quantity = Integer.parseInt(words[3].trim());
                 String orderDate = words[4],
                         status = words[5].trim();
-                orders.add(new Order(orderID, customerID, productID, quantity, orderDate, status));
+                orders.add(new Order(orderID, customerID, productID, quantity, orderDate, status, customers));
             }
             br.close();
             fr.close();
@@ -251,11 +250,11 @@ public class OrderManagement implements OrderM {
         }
     }
 
-    private static void sortByCustomerName(List<Order> orders, List<Customer> customers) {
+    private static void sortByCustomerName(List<Order> orders) {
         Collections.sort(orders, new Comparator<Order>() {
             @Override
             public int compare(Order o1, Order o2) {
-                return o1.getCustomerName(customers).compareTo(o2.getCustomerName(customers));
+                return o1.getCustomerName().compareTo(o2.getCustomerName());
             }
         });
     }
