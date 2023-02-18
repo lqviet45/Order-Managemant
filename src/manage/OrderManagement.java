@@ -24,8 +24,8 @@ public class OrderManagement implements OrderM {
     private String orderDate;
     private String status;
 
-    public OrderManagement(List<Order> orders, List<Customer> customers) {
-        loadData(orders, customers);
+    public OrderManagement(List<Order> orders) {
+        loadData(orders);
     }
 
     public void printAllPendingOrder(List<Order> orders) {
@@ -54,7 +54,7 @@ public class OrderManagement implements OrderM {
         quantity = Validation.getInt("Enter order quantity: ", 0, Integer.MAX_VALUE, 1);
         orderDate = Validation.inputDate(1);
         status = Validation.inputStatus(1);
-        orders.add(new Order(orderID, customerID, productID, quantity, orderDate, status, customers));
+        orders.add(new Order(orderID, customerID, productID, quantity, orderDate, status));
         if (saveToFile(orders)) {
             System.out.println("SUCCESS");
         } else {
@@ -102,9 +102,9 @@ public class OrderManagement implements OrderM {
                     status = orders.get(i).getStatus();
                 }
                 Order temp = orders.get(i);
-                Order o = new Order(orderID, customerID, productID, quantity, orderDate, status, customers);
+                Order o = new Order(orderID, customerID, productID, quantity, orderDate, status);
                 if (!orders.get(i).equals(o)) {
-                    orders.set(i, new Order(orderID, customerID, productID, quantity, orderDate, status, customers));
+                    orders.set(i, new Order(orderID, customerID, productID, quantity, orderDate, status));
                     if(saveToFile(orders)) {
                         System.out.println("SUCCESS");
                     } else {
@@ -177,7 +177,7 @@ public class OrderManagement implements OrderM {
         }
     }
 
-    private static void loadData(List<Order> orders, List<Customer> customers) {
+    private static void loadData(List<Order> orders) {
         try {
             FileReader fr = new FileReader("orders.txt");
             BufferedReader br = new BufferedReader(fr);
@@ -194,7 +194,7 @@ public class OrderManagement implements OrderM {
                 int quantity = Integer.parseInt(words[3].trim());
                 String orderDate = words[4],
                         status = words[5].trim();
-                orders.add(new Order(orderID, customerID, productID, quantity, orderDate, status, customers));
+                orders.add(new Order(orderID, customerID, productID, quantity, orderDate, status));
             }
             br.close();
             fr.close();

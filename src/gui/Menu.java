@@ -15,7 +15,7 @@ public class Menu {
 
     private static final ProductM pm = new ProductManagement(pList);
     private static final CustomerM cm = new CustomerManagement(cList);
-    private static final OrderM om = new OrderManagement(oList, cList);
+    private static final OrderM om = new OrderManagement(oList);
     
     private static final String[] program = {
         "List all products.",

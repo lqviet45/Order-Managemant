@@ -1,14 +1,17 @@
 package model;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
-
+import java.util.stream.Collectors;
+import manage.CustomerManagement;
 
 /**
  *
  * @author DELL
  */
 public class Order {
+
     private String orderID, customerID, productID, CustomerName;
     private int quantity;
     private String orderDate;
@@ -17,24 +20,27 @@ public class Order {
     public Order() {
     }
 
-    public Order(String orderID, String customerID, String productID, int quantity, String orderDate, String status, List<Customer> customers) {
+    public Order(String orderID, String customerID, String productID, int quantity, String orderDate, String status) {
         this.orderID = orderID;
         this.customerID = customerID;
         this.productID = productID;
         this.quantity = quantity;
         this.orderDate = orderDate;
         this.status = status;
-        for (Customer o : customers) {
-            if(o.getID().equalsIgnoreCase(customerID)) {
-                this.CustomerName = o.getName();
-            }
-        }
+
+//        for (Customer o : customers) {
+//            if(o.getID().equalsIgnoreCase(customerID)) {
+//                this.CustomerName = o.getName();
+//                break;
+//            }
+//        }
     }
 
     public String getCustomerName() {
+        this.CustomerName = CustomerManagement.getCustomerName(customerID);
         return CustomerName;
     }
-    
+
     public String getOrderID() {
         return orderID;
     }
@@ -82,7 +88,6 @@ public class Order {
     public void setStatus(String status) {
         this.status = status;
     }
-   
 
     @Override
     public String toString() {

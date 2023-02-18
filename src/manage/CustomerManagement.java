@@ -8,7 +8,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import validation.Validation;
 /**
  *
@@ -16,10 +18,15 @@ import validation.Validation;
  */
 public class CustomerManagement implements CustomerM{
     private String ID, name, address, phone;
-
+    private static final Map<String, String> map = new HashMap<>();
+    
     public CustomerManagement(List<Customer> customers) {
         loadData(customers);
     } 
+    
+    public static String getCustomerName(String id) {
+        return map.get(id);
+    }
     
     public void createCustomer(List<Customer> customers) {
         ID = getCustomerID(customers, 1, true);
@@ -28,6 +35,7 @@ public class CustomerManagement implements CustomerM{
         phone = Validation.getString("Enter customer's phone number: ", "Phone number must have 10 -> 12 digits", "[0-9]{10,12}", 1);
         customers.add(new Customer(ID, name, address, phone));
         if(saveToFile(customers)) {
+            map.put(ID, name);
             System.out.println("SUCCESS");
         } else {
             customers.remove(this);
@@ -78,6 +86,8 @@ public class CustomerManagement implements CustomerM{
                 if(!customers.get(i).equals(c)) {
                     customers.set(i, c);
                     saveToFile(customers);
+                    map.remove(ID);
+                    map.put(ID, name);
                     if(saveToFile(customers)) {
                         System.out.println("SUCCESS");
                     } else {
@@ -133,6 +143,7 @@ public class CustomerManagement implements CustomerM{
                 address = words[2].trim(),
                 phone = words[3].trim();               
                 customers.add(new Customer(ID, name, address, phone));
+                map.put(ID, name);
             }        
             br.close();
             fr.close();

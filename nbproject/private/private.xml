@@ -3,12 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/E:/FPTU/SPRING2023/LAB211/BaiLam/Order%20Management/src/datamodel/ProductM.java</file>
             <file>file:/E:/FPTU/SPRING2023/LAB211/BaiLam/Order%20Management/src/manage/OrderManagement.java</file>
-            <file>file:/E:/FPTU/SPRING2023/LAB211/BaiLam/Order%20Management/src/manage/ProductManagement.java</file>
+            <file>file:/E:/FPTU/SPRING2023/LAB211/BaiLam/Order%20Management/src/model/Customer.java</file>
             <file>file:/E:/FPTU/SPRING2023/LAB211/BaiLam/Order%20Management/src/gui/Menu.java</file>
+            <file>file:/E:/FPTU/SPRING2023/LAB211/BaiLam/Order%20Management/src/manage/ProductManagement.java</file>
+            <file>file:/E:/FPTU/SPRING2023/LAB211/BaiLam/Order%20Management/src/datamodel/CustomerM.java</file>
             <file>file:/E:/FPTU/SPRING2023/LAB211/BaiLam/Order%20Management/src/gui/Main.java</file>
+            <file>file:/E:/FPTU/SPRING2023/LAB211/BaiLam/Order%20Management/src/datamodel/OrderM.java</file>
             <file>file:/E:/FPTU/SPRING2023/LAB211/BaiLam/Order%20Management/src/manage/CustomerManagement.java</file>
             <file>file:/E:/FPTU/SPRING2023/LAB211/BaiLam/Order%20Management/src/model/Order.java</file>
+            <file>file:/E:/FPTU/SPRING2023/LAB211/BaiLam/Order%20Management/src/model/Product.java</file>
         </group>
     </open-files>
 </project-private>
