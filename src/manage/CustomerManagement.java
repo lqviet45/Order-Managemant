@@ -85,10 +85,9 @@ public class CustomerManagement implements CustomerM{
                 Customer temp = customers.get(i);
                 if(!customers.get(i).equals(c)) {
                     customers.set(i, c);
-                    saveToFile(customers);
-                    map.remove(ID);
-                    map.put(ID, name);
                     if(saveToFile(customers)) {
+                        map.remove(ID);
+                        map.put(ID, name);
                         System.out.println("SUCCESS");
                     } else {
                         customers.set(i, temp);
