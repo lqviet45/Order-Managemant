@@ -95,7 +95,8 @@ public class Validation {
             String s = sc.nextLine();
             if (s.trim().equalsIgnoreCase("y")) {
                 return true;
-            }else if (s.trim().equalsIgnoreCase("n")) {
+            } 
+            if (s.trim().equalsIgnoreCase("n")) {
                 return false;
             }
             System.err.println("PLEASE INPUT ONLY Y-N!!");

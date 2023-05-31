@@ -1,90 +1,31 @@
 package model;
 
-import java.util.Objects;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-/**
- *
- * @author DELL
- */
+
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
 public class Customer {
+
     private String ID, name, address, phone;
 
-    public Customer() {
-    }
-
-    public Customer(String ID, String name, String address, String phone) {
-        this.ID = ID;
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
-    }
-
-    public String getID() {
-        return ID;
-    }
-
-    public void setID(String ID) {
-        this.ID = ID;
-    }
-
-    public String getName() {
-        return name.toUpperCase();
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address.toUpperCase();
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPhone() {
-        return phone.toUpperCase();
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public Customer setCustomer(Customer c) {
+        this.name = c.name;
+        this.address = c.address;
+        this.phone = c.phone;
+        return this;
     }
 
     @Override
     public String toString() {
-        return getID() + "," + getName() + "," + getAddress() + "," + getPhone();
+        return this.ID + "," + this.name + "," + this.address + "," + this.phone;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Customer other = (Customer) obj;
-        if (!Objects.equals(this.ID, other.ID)) {
-            return false;
-        }
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.address, other.address)) {
-            return false;
-        }
-        return Objects.equals(this.phone, other.phone);
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        return hash;
-    }
-    
-    
 }

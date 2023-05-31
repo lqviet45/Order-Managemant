@@ -9,7 +9,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 import validation.Validation;
 import model.*;
 
@@ -33,11 +35,15 @@ public class OrderManagement implements OrderM {
             System.out.println("List order is empty!!");
             return;
         }
-        for (Order o : orders) {
-            if (o.getStatus().equalsIgnoreCase("false")) {
-                System.out.println(o);
-            }
-        }
+//        for (Order o : orders) {
+//            if (o.getStatus().equalsIgnoreCase("false")) {
+//                System.out.println(o);
+//            }
+//        }       
+        orders.stream()
+                .filter(o -> o.getStatus().equalsIgnoreCase("false"))
+                .collect(Collectors.toList())
+                .forEach(o -> System.out.println(o));
     }
 
     public void creatOrder(List<Order> orders, List<Product> products, List<Customer> customers) {
@@ -105,7 +111,7 @@ public class OrderManagement implements OrderM {
                 Order o = new Order(orderID, customerID, productID, quantity, orderDate, status);
                 if (!orders.get(i).equals(o)) {
                     orders.set(i, new Order(orderID, customerID, productID, quantity, orderDate, status));
-                    if(saveToFile(orders)) {
+                    if (saveToFile(orders)) {
                         System.out.println("SUCCESS");
                     } else {
                         orders.set(i, temp);
@@ -126,24 +132,24 @@ public class OrderManagement implements OrderM {
             return;
         }
         orderID = getOrderID(orders, 2, false);
-        for (int i = 0; i < orders.size(); i++) {
-            if (orders.get(i).getOrderID().equalsIgnoreCase(orderID)) {
+        Iterator<Order> iterator = orders.iterator();
+        while (iterator.hasNext()) {
+            Order next = iterator.next();
+            if (next.getOrderID().equalsIgnoreCase(orderID)) {
                 boolean isDelete = Validation.inputYN("Do you want to delete this id " + orderID + ": ");
                 if (!isDelete) {
                     System.out.println("Stop Delete");
                     return;
                 }
-                Order temp = orders.get(i);
-                orders.remove(i);
-                if(saveToFile(orders)) {
+                iterator.remove();
+                if (saveToFile(orders)) {
                     System.out.println("SUCCESS");
                     return;
-                } else {
-                    orders.add(temp);
                 }
+                orders.add(next);
+                System.out.println("DELETE FAIL");
             }
         }
-        System.out.println("DELETE FAIL");
     }
 
     public void printAllOrder(List<Order> orders, List<Customer> customers) {
@@ -152,9 +158,10 @@ public class OrderManagement implements OrderM {
             return;
         }
         sortByCustomerName(orders);
-        for (Order o : orders) {
-            System.out.println(o);
-        }
+//        for (Order o : orders) {
+//            System.out.println(o);
+//        }
+        orders.stream().forEach(o -> System.out.println(o));
     }
 
     private static boolean saveToFile(List<Order> orders) {
@@ -228,12 +235,14 @@ public class OrderManagement implements OrderM {
     }
 
     private boolean checkDuplicateID(String ID, List<Order> orders) {
-        for (Order o : orders) {
-            if (o.getOrderID().equalsIgnoreCase(ID)) {
-                return true;
-            }
-        }
-        return false;
+//        for (Order o : orders) {
+//            if (o.getOrderID().equalsIgnoreCase(ID)) {
+//                return true;
+//            }
+//        }
+//        return false;
+        return orders.stream()
+                .anyMatch(o -> o.getOrderID().equalsIgnoreCase(ID));
     }
 
     private void showCustomers(List<Customer> customers) {
@@ -251,11 +260,6 @@ public class OrderManagement implements OrderM {
     }
 
     private static void sortByCustomerName(List<Order> orders) {
-        Collections.sort(orders, new Comparator<Order>() {
-            @Override
-            public int compare(Order o1, Order o2) {
-                return o1.getCustomerName().compareTo(o2.getCustomerName());
-            }
-        });
+        Collections.sort(orders, (Order o1, Order o2) -> o1.getCustomerName().compareTo(o2.getCustomerName()));
     }
 }

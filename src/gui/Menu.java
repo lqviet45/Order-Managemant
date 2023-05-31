@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import manage.*;
 import datamodel.*;
+import exception.CustomerNotFoundException;
 import model.*;
 import validation.Validation;
 
@@ -47,7 +48,8 @@ public class Menu {
                     cm.printCustomersList(cList);
                     break;
                 case 3:
-                    cm.searchCustomer(cList);
+                    System.out.println(cm.searchCustomer(cList)
+                            .orElseThrow(() -> new CustomerNotFoundException("Not found")));
                     break;
                 case 4:
                     while (isContinue) {

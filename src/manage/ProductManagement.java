@@ -17,9 +17,7 @@ public class ProductManagement implements ProductM{
     }
     
     public void printProductsList(List<Product> products) {
-        for (Product o : products) {
-            System.out.println(o);
-        }
+        products.forEach(p -> System.out.println(p));
     }
     
     
